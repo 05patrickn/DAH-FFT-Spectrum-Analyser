@@ -8,11 +8,11 @@ def generate_sine_wave(frequency, num_samples=1024, sampling_frequency=61522, am
     return time_values, values
 
 # Generate sinusoidal waves with varying frequencies
-frequencies = [8000, 50000]  # Example frequencies in Hz
+frequencies = [2000, 8000, 32000, 50000]  # Example frequencies in Hz
 sampling_frequency = 61522  # Example sampling frequency in Hz
 
 # Create a 2x2 grid of subplots for each frequency
-fig, axs = plt.subplots(len(frequencies), 2, figsize=(12, 4))
+fig, axs = plt.subplots(len(frequencies), 2, figsize=(12, 10))
 
 # Plot sinusoidal waveforms
 for i, freq in enumerate(frequencies):
@@ -26,11 +26,11 @@ for i, freq in enumerate(frequencies):
 
     # Plot Fourier transform
     fft_result = np.fft.rfft(values)
-    fft_magnitude = np.abs(fft_result)
+    fft_magnitude = (np.abs(fft_result)**2)/1000
     fft_freq = np.fft.rfftfreq(np.size(values), 1 / sampling_frequency)
     axs[i, 1].plot(fft_freq, fft_magnitude, label=f'Frequency: {frequencies[i]/1000} KHz')
     axs[i, 1].set_xlabel('Frequency [Hz]')
-    axs[i, 1].set_ylabel('Magnitude')
+    axs[i, 1].set_ylabel('Power [W/KHz]')
     axs[i, 1].set_title(f'Theoretical Fourier Transform {freq/1000} KHz')
     axs[i, 1].legend(loc='upper right')
     axs[i, 1].grid(True)

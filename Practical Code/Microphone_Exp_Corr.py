@@ -3,17 +3,16 @@ import matplotlib.pyplot as plt
 
 # List of file paths
 file_paths = [
-    "C:/Users/05pat/OneDrive/Escritorio/DAH Project Final/microphone/8Khz_data1_mic.txt",
     "C:/Users/05pat/OneDrive/Escritorio/DAH Project Final/microphone/1000hz + 2000hz 8Khz_data1_mic.txt",
+    "C:/Users/05pat/OneDrive/Escritorio/DAH Project Final/microphone/16Khz_data1_mic.txt",
     "C:/Users/05pat/OneDrive/Escritorio/DAH Project Final/microphone/piano A-mid 16Khz_data1_mic.txt"
 
 ]
 
 # Example frequencies in Hz
-frequencies = ["4Khz" , "0.5Khz + 1KHz", "Key: A-mid (Piano)" ]
+frequencies = ["0.5Khz + 1KHz Sinusoid", "16Khz Sinusoid", "Key: A-mid (Piano)" ]
 
-sampling_frequency = 61522/2  # Example sampling frequency in Hz
-
+sampling_frequency = 61522
 # Create a grid of subplots
 fig, axs = plt.subplots(len(file_paths), 2, figsize=(12, 2 * len(file_paths)), squeeze=False)
 
@@ -38,7 +37,7 @@ for i, file_path in enumerate(file_paths):
     fft_freq = np.fft.rfftfreq(np.size(voltage_values), 1 / sampling_frequency)
     axs[i, 1].plot(fft_freq[1:], fft_magnitude[1:], label=f'Frequency: {frequencies[i]}',  color="black")
     axs[i, 1].set_xlabel('Frequency [Hz]')
-    axs[i, 1].set_ylabel('Magnitude')
+    axs[i, 1].set_ylabel('Power [W/KHz]')
     axs[i, 1].set_title(f'Experimental Fourier Transform - {frequencies[i]}')
     axs[i, 1].legend(loc='upper right')  # Set legend to top right
     axs[i, 1].grid(True)
