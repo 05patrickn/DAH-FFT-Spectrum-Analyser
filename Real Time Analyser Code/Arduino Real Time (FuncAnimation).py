@@ -5,7 +5,6 @@ from matplotlib.animation import FuncAnimation
 import time
 
 sampling_frequency=64000
-freq=2 #kHz
 
 # Function to update the plot for each frame
 def update(frame):
@@ -27,9 +26,12 @@ def update(frame):
     # Plot the FFT magnitude
     ax.plot(fft_freq, fft_magnitude)
     ax.set_xlabel('Frequency [Hz]')
-    ax.set_ylabel('Magnitude')
-    ax.set_title(f'Fourier Transform of Voltage Readings at {freq} KHz')
+    ax.set_ylabel('Power [W/KHz]')
+    ax.set_title(f'Experimental Fourier Transform {sampling_frequency/1000} KHz')
     ax.grid(True)
+    ax.set_xlim()
+    ax.set_ylim(0, 250)
+
 
 # Set up the serial communication
 ser = serial.Serial('/dev/ttyACM0', 115200, timeout=5)
@@ -43,11 +45,7 @@ time.sleep(1)
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Create an animation that calls the update function at each frame
-ani = FuncAnimation(fig, update, frames=range(100), interval=1000, repeat=False)
+ani = FuncAnimation(fig, update, frames=range(100), interval=50, repeat=False) #interval=1000 animation speed
 
-# Show the real-time FFT plot
-plt.tight_layout()
 plt.show()
 
-# Close the serial port
-ser.close()
