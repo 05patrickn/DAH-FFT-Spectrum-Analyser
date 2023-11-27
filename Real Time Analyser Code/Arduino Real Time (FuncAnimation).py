@@ -45,7 +45,7 @@ time.sleep(1)
 fig, ax = plt.subplots(figsize=(10, 6))
 
 # Create an animation that calls the update function at each frame
-ani = FuncAnimation(fig, update, frames=range(100), interval=50, repeat=False) #interval=1000 animation speed
+ani = FuncAnimation(fig, update, frames=range(100), interval=1000, repeat=False) #interval=1000 animation speed
 
 # Save the animation as a GIF
 ani.save('2KHz animated square.gif', writer='pillow')
